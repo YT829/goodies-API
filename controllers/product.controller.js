@@ -36,7 +36,7 @@ async function create(req, res) {
   }
 
   conn.query(
-    `INSERT INTO \`ntutdb\`.\`product\`(\`product_name\`, \`product_price\`,\`retailler_price\`,\`description\`,\`quantity\`,\`status\`,\`product_image\`) VALUES(?)`,
+    `INSERT INTO \`ntutsystemAWS\`.\`product\`(\`id\`, \`product_name\`, \`product_price\`,\`retailler_price\`,\`description\`,\`quantity\`,\`status\`,\`product_image\`) VALUES(?)`,
     [data],
     function (err, result) {
       if (err) throw err;
@@ -46,7 +46,7 @@ async function create(req, res) {
   );
 }
 
-async function update() {}
+async function update() { }
 
 /**
  * Update 1 product in DB
@@ -55,7 +55,7 @@ async function update() {}
  */
 async function update(req, res) {
   conn.query(
-    `UPDATE \`ntutdb\`.\`product\` SET ? WHERE \`id\`=${req.params.product}`,
+    `UPDATE \`ntutsystemAWS\`.\`product\` SET ? WHERE \`id\`=${req.params.product}`,
     [req.body],
     function (err, result) {
       if (err) throw err;
@@ -72,7 +72,7 @@ async function update(req, res) {
  */
 async function destroy(req, res) {
   conn.query(
-    `DELETE FROM \`ntutdb\`.\`product\` WHERE \`id\`=${req.params.product}`,
+    `DELETE FROM \`ntutsystemAWS\`.\`product\` WHERE \`id\`=${req.params.product}`,
     function (err, result) {
       if (err) throw err;
       res.status(202).json(result).end();

@@ -1,7 +1,10 @@
 const product = require('./controllers/product.controller')
+const user = require('./controllers/user.controller')
+const { changeUser } = require('./db')
 
 module.exports = (route) => {
-    route.get('/users')
+    route.get('/user', (req, res) => user.index(res))
+    route.post('/user', (req, res) => user.create(req, res))
 
     route.get('/products', (req, res) => product.index(res))
     route.get('/products/:product', (req, res) => product.read(req, res))
