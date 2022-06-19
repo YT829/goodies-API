@@ -10,6 +10,10 @@ async function read(req, res) {
   );
 }
 
+/**
+ * Get all products from DB
+ * @param {} res
+ */
 async function index(res) {
   conn.query(`SELECT * FROM product`, function (err, result) {
     if (err) throw err;
@@ -17,6 +21,11 @@ async function index(res) {
   });
 }
 
+/**
+ * Post 1 product into DB
+ * @param {*} req
+ * @param {*} res
+ */
 async function create(req, res) {
   const product = req.body,
     data = [];
@@ -39,7 +48,37 @@ async function create(req, res) {
 
 async function update() {}
 
-async function destroy() {}
+/**
+ * Update 1 product in DB
+ * @param {*} req
+ * @param {*} res
+ */
+async function update(req, res) {
+  conn.query(
+    `UPDATE \`ntutdb\`.\`product\` SET ? WHERE \`id\`=${req.params.product}`,
+    [req.body],
+    function (err, result) {
+      if (err) throw err;
+      result.data = req.body;
+      res.status(201).json(result).end();
+    }
+  );
+}
+
+/**
+ * Delete 1 product from DB
+ * @param {*} req
+ * @param {*} res
+ */
+async function destroy(req, res) {
+  conn.query(
+    `DELETE FROM \`ntutdb\`.\`product\` WHERE \`id\`=${req.params.product}`,
+    function (err, result) {
+      if (err) throw err;
+      res.status(202).json(result).end();
+    }
+  );
+}
 
 module.exports = {
   read,
